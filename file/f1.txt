@@ -1,0 +1,8 @@
+cat
+dog
+banana
+watermelon
+0
+3
+43
+123
