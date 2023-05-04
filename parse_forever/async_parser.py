@@ -70,9 +70,6 @@ async def gather_data():
     url = f'https://cars.av.by/filter?brands[0][brand]=6&brands[0][model]=5812&'
 
     async with ClientSession() as session:
-        response = await session.get(url=url, headers=headers)
-        soup = BeautifulSoup(await response.text(), 'html.parser')
-
         tasks = []
         for page in range(1, 9):
             task = asyncio.create_task(get_page_data(session, page))
@@ -91,11 +88,11 @@ def main():
     result_sort = dict(sorted(list_tuples, key=lambda x: x[1]['Цена(USD)']))  # Сортировка по цене в USD
 
     # Запись данных в json-файл
-    with open('data_async.json', 'w', encoding='utf-8') as file:
+    with open('data.json', 'w', encoding='utf-8') as file:
         json.dump(result_sort, file, indent=4, ensure_ascii=False)
 
     # Запись данных в csv-файл
-    with open('file_async.csv', 'w', encoding='utf-8') as file:
+    with open('file.csv', 'w', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',', lineterminator='\r')
         file_writer.writerow(['Ссылка', 'Цена(BYN)', 'Цена(USD)', 'Тип двигателя', 'Объем', 'Пробег', 'Год выпуска'])
         for key, value in result_sort.items():
