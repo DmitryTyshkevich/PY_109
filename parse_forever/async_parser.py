@@ -61,14 +61,6 @@ async def get_page_data(session, page):
 
 async def gather_data():
     '''Функция формирует список задач'''
-    headers = {
-        'Accept': 'text/html, application/xhtml+xml, application/xml;q=0.9,image/webp, */*;q=0.8',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                      'AppleWebKit/537.36 (KHTML, like Gecko)'
-                      ' Chrome/112.0.0.0 Safari/537.36'
-    }
-    url = f'https://cars.av.by/filter?brands[0][brand]=6&brands[0][model]=5812&'
-
     async with ClientSession() as session:
         tasks = []
         for page in range(1, 9):
